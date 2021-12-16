@@ -6,11 +6,9 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import game.com.anish.world.Bomb;
-// import game.com.anish.world.Creature;
-// import game.com.anish.world.Thing;
 import game.com.anish.world.Player;
-import game.com.anish.world.World;
 import game.com.anish.world.Wall;
+import game.com.anish.world.World;
 
 import game.asciiPanel.AsciiPanel;
 
