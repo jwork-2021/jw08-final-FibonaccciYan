@@ -1,18 +1,21 @@
 package game.com.anish.world;
 
 import java.awt.Color;
+import java.io.Serializable;
 
-public class Player extends Creature implements Runnable{
+public class Player extends Creature implements Runnable {
 
     private int xPos;
     private int yPos;
     private boolean alive;
+    private int identifier;
 
-    public Player(Color color, World world, int xPos, int yPos) {
+    public Player(Color color, World world, int xPos, int yPos, int identifier) {
         super(color, (char) 2, world);
         this.xPos = xPos;
         this.yPos = yPos;
         this.alive = true;
+        this.identifier = identifier;
     }
 
     public boolean getStatus() {
@@ -39,6 +42,10 @@ public class Player extends Creature implements Runnable{
         this.yPos = yPos;
     }
 
+    public int getIdentifier() {
+        return identifier;
+    }
+
     @Override
     public void run() {
         while(true) {  
@@ -46,7 +53,8 @@ public class Player extends Creature implements Runnable{
             System.out.print("");
             if(!alive) {
                 world.remove(xPos, yPos);
-                world.win();
+                //TODO: winner
+                world.gameOver(identifier);
                 return;
             }
         }

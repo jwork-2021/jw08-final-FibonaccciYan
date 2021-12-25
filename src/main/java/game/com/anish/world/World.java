@@ -1,11 +1,12 @@
 package game.com.anish.world;
 
 import java.awt.Color;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class World {
+public class World implements Serializable {
 
     public static final int WIDTH = 20;
     public static final int HEIGHT = 20;
@@ -84,21 +85,32 @@ public class World {
             maze[x][y] = target;
     }
 
-    public void win() {
-        running =  false;
+    public void gameOver(int identifier) {
+        running = false;
 
+        clearScreen();
+
+        put(new Thing(new Color(0, 0, 255), 'P', this), 6, HEIGHT/2 - 1);
+        put(new Thing(new Color(0, 0, 255), 'L', this), 7, HEIGHT/2 - 1);
+        put(new Thing(new Color(0, 0, 255), 'A', this), 8, HEIGHT/2 - 1);
+        put(new Thing(new Color(0, 0, 255), 'Y', this), 9, HEIGHT/2 - 1);
+        put(new Thing(new Color(0, 0, 255), 'E', this), 10, HEIGHT/2 - 1);
+        put(new Thing(new Color(0, 0, 255), 'R', this), 11, HEIGHT/2 - 1);
+        put(new Thing(new Color(0, 0, 255), (char)(identifier + 48), this), 13, HEIGHT/2 - 1);
+        put(new Thing(new Color(0, 0, 255), 'W', this), 8, HEIGHT/2);
+        put(new Thing(new Color(0, 0, 255), 'I', this), 9, HEIGHT/2);
+        put(new Thing(new Color(0, 0, 255), 'N', this), 10, HEIGHT/2);
+        put(new Thing(new Color(0, 0, 255), '!', this), 11, HEIGHT/2);
+    }
+
+    public void clearScreen() {
         for(int i = 0; i < WIDTH; i++) {
             for(int j = 0; j < HEIGHT; j++) {
                 put(new Thing(new Color(0, 0, 0), ' ', this), i, j);
             }
         }
-
-        put(new Thing(new Color(0, 0, 255), 'Y', this), 6, HEIGHT/2 - 1);
-        put(new Thing(new Color(0, 0, 255), 'O', this), 7, HEIGHT/2 - 1);
-        put(new Thing(new Color(0, 0, 255), 'U', this), 8, HEIGHT/2 - 1);
-        put(new Thing(new Color(0, 0, 255), 'W', this), 10, HEIGHT/2 - 1);
-        put(new Thing(new Color(0, 0, 255), 'I', this), 11, HEIGHT/2 - 1);
-        put(new Thing(new Color(0, 0, 255), 'N', this), 12, HEIGHT/2 - 1);
-        put(new Thing(new Color(0, 0, 255), '!', this), 13, HEIGHT/2 - 1);
     }
+
 }
+
+

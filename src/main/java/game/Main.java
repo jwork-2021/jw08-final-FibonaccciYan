@@ -6,7 +6,7 @@ import java.awt.event.KeyListener;
 import javax.swing.JFrame;
 
 import game.com.anish.screen.Render;
-import game.com.anish.screen.WorldScreen;
+import game.com.anish.screen.StartScreen;
 import game.com.anish.world.World;
 
 import game.com.anish.screen.Screen;
@@ -23,7 +23,7 @@ public class Main extends JFrame implements KeyListener {
         terminal = new AsciiPanel(World.WIDTH, World.HEIGHT, AsciiFont.TALRYTH_15_15);
         add(terminal);
         pack();
-        screen = new WorldScreen();
+        screen = new StartScreen();
         addKeyListener(this);
         repaint();
         new Thread(new Render(this)).start();

@@ -1,5 +1,6 @@
 package game.com.anish.world;
 
+import java.io.Serializable;
 import java.util.Iterator;
 import java.util.List;
 

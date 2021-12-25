@@ -18,19 +18,16 @@ public class WorldScreen implements Screen {
 
     public static final int SIZE = 20;
 
-    private World world;
-    private Player player1;
-    private Player player2;
-    private ExecutorService exec = Executors.newCachedThreadPool();
-
-    String[] mazeSteps;
-    String[] visualSteps;
+    World world;
+    Player player1;
+    Player player2;
+    ExecutorService exec = Executors.newCachedThreadPool();
 
     public WorldScreen() {
         initWorld();
 
-        player1 = new Player(new Color(255, 255, 0), world, 0, 0);
-        player2 = new Player(new Color(0, 255, 0), world, SIZE - 1, SIZE - 1);
+        player1 = new Player(new Color(255, 255, 0), world, 0, 0, 1);
+        player2 = new Player(new Color(0, 255, 0), world, SIZE - 1, SIZE - 1, 2);
         world.put(player1, 0, 0);
         world.setMaze(0, 0, 2);
         world.put(player2, SIZE - 1, SIZE - 1);
@@ -40,6 +37,7 @@ public class WorldScreen implements Screen {
 
         exec.execute(player1);
         exec.execute(player2);
+    
     } 
 
     private void initWorld() {
@@ -158,6 +156,8 @@ public class WorldScreen implements Screen {
                         exec.execute(bomb);
                     }
                     break;
+                case KeyEvent.VK_ESCAPE:
+                    return new EscScreen(this);
                 default:
                     break;
             }

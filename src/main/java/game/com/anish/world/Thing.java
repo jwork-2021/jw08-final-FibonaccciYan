@@ -1,8 +1,9 @@
 package game.com.anish.world;
 
 import java.awt.Color;
+import java.io.Serializable;
 
-public class Thing {
+public class Thing implements Serializable {
 
     protected World world;
 

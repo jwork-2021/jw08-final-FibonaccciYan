@@ -1,6 +1,8 @@
 package game.com.anish.world;
 
-public class Tile<T extends Thing> {
+import java.io.Serializable;
+
+public class Tile<T extends Thing> implements Serializable {
 
     private T thing;
     private int xPos;
