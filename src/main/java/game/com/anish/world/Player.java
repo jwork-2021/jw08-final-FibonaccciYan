@@ -1,7 +1,6 @@
 package game.com.anish.world;
 
 import java.awt.Color;
-import java.io.Serializable;
 
 public class Player extends Creature implements Runnable {
 
