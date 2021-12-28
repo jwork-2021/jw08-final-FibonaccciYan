@@ -20,6 +20,7 @@ public class InstructionScreen extends RestartScreen {
         terminal.write("Hope you enjoy!", 0, 15, AsciiPanel.brightYellow);
         terminal.write("(return with ENTER)", 0, 19, AsciiPanel.brightWhite);
     }
+    
     @Override
     public Screen respondToUserInput(KeyEvent key) {
         switch(key.getKeyCode()) {

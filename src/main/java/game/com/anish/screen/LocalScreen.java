@@ -14,7 +14,7 @@ import game.asciiPanel.AsciiPanel;
 
 import game.maze.MazeGenerator;
 
-public class WorldScreen implements Screen {
+public class LocalScreen implements Screen {
 
     public static final int SIZE = 20;
 
@@ -23,7 +23,7 @@ public class WorldScreen implements Screen {
     Player player2;
     ExecutorService exec = Executors.newCachedThreadPool();
 
-    public WorldScreen() {
+    public LocalScreen() {
         initWorld();
 
         player1 = new Player(new Color(255, 255, 0), world, 0, 0, 1);
@@ -37,8 +37,8 @@ public class WorldScreen implements Screen {
 
         exec.execute(player1);
         exec.execute(player2);
-    
-    } 
+
+    }
 
     private void initWorld() {
         world = new World();
@@ -46,17 +46,17 @@ public class WorldScreen implements Screen {
         mazeGenerator.generateMaze();
         world.maze = mazeGenerator.getMaze();
 
-        for(int i = 0; i < world.maze.length; i++){
-            for(int j = 0; j < world.maze[0].length; j++){
-                if(world.maze[i][j] == 0){
+        for (int i = 0; i < world.maze.length; i++) {
+            for (int j = 0; j < world.maze[0].length; j++) {
+                if (world.maze[i][j] == 0) {
                     world.put(new Wall(world), i, j);
                 }
             }
         }
     }
 
-    private boolean isValidMove(int xPos, int yPos){
-        if(xPos >= 0 && xPos < SIZE && yPos >= 0 && yPos < SIZE && world.maze[xPos][yPos] == 1){
+    private boolean isValidMove(int xPos, int yPos) {
+        if (xPos >= 0 && xPos < SIZE && yPos >= 0 && yPos < SIZE && world.maze[xPos][yPos] == 1) {
             return true;
         }
         return false;
@@ -78,39 +78,39 @@ public class WorldScreen implements Screen {
         int xPos2 = player2.getxPos();
         int yPos2 = player2.getyPos();
 
-        if(world.running) {
-            switch(key.getKeyCode()){
+        if (world.running) {
+            switch (key.getKeyCode()) {
                 // player1 control
                 case KeyEvent.VK_LEFT:// left arrow
-                    if(player1.getStatus() == true && isValidMove(xPos1 - 1, yPos1)){
+                    if (player1.getStatus() == true && isValidMove(xPos1 - 1, yPos1)) {
                         player1.moveTo(xPos1, yPos1, xPos1 - 1, yPos1);
                         player1.setxPos(xPos1 - 1);
                         player1.setyPos(yPos1);
                     }
                     break;
                 case KeyEvent.VK_UP:// up arrow
-                    if(player1.getStatus() == true && isValidMove(xPos1, yPos1 - 1)){
+                    if (player1.getStatus() == true && isValidMove(xPos1, yPos1 - 1)) {
                         player1.moveTo(xPos1, yPos1, xPos1, yPos1 - 1);
                         player1.setxPos(xPos1);
                         player1.setyPos(yPos1 - 1);
                     }
                     break;
                 case KeyEvent.VK_RIGHT:// right arrow
-                    if(player1.getStatus() == true && isValidMove(xPos1 + 1, yPos1)){
+                    if (player1.getStatus() == true && isValidMove(xPos1 + 1, yPos1)) {
                         player1.moveTo(xPos1, yPos1, xPos1 + 1, yPos1);
                         player1.setxPos(xPos1 + 1);
                         player1.setyPos(yPos1);
                     }
                     break;
                 case KeyEvent.VK_DOWN:// down arrow
-                    if(player1.getStatus() == true && isValidMove(xPos1, yPos1 + 1)){
+                    if (player1.getStatus() == true && isValidMove(xPos1, yPos1 + 1)) {
                         player1.moveTo(xPos1, yPos1, xPos1, yPos1 + 1);
                         player1.setxPos(xPos1);
                         player1.setyPos(yPos1 + 1);
                     }
                     break;
                 case KeyEvent.VK_ENTER:// enter
-                    if(player1.getStatus() == true) {
+                    if (player1.getStatus() == true) {
                         Bomb bomb = new Bomb(world, xPos1, yPos1);
                         world.put(bomb, xPos1, yPos1);
                         world.setMaze(xPos1, yPos1, 3);
@@ -120,35 +120,35 @@ public class WorldScreen implements Screen {
                     break;
                 // player2 control
                 case KeyEvent.VK_A:// A
-                    if(player2.getStatus() == true && isValidMove(xPos2 - 1, yPos2)){
+                    if (player2.getStatus() == true && isValidMove(xPos2 - 1, yPos2)) {
                         player2.moveTo(xPos2, yPos2, xPos2 - 1, yPos2);
                         player2.setxPos(xPos2 - 1);
                         player2.setyPos(yPos2);
                     }
                     break;
                 case KeyEvent.VK_W:// W
-                    if(player2.getStatus() == true && isValidMove(xPos2, yPos2 - 1)){
+                    if (player2.getStatus() == true && isValidMove(xPos2, yPos2 - 1)) {
                         player2.moveTo(xPos2, yPos2, xPos2, yPos2 - 1);
                         player2.setxPos(xPos2);
                         player2.setyPos(yPos2 - 1);
                     }
                     break;
                 case KeyEvent.VK_D:// D
-                    if(player2.getStatus() == true && isValidMove(xPos2 + 1, yPos2)){
+                    if (player2.getStatus() == true && isValidMove(xPos2 + 1, yPos2)) {
                         player2.moveTo(xPos2, yPos2, xPos2 + 1, yPos2);
                         player2.setxPos(xPos2 + 1);
                         player2.setyPos(yPos2);
                     }
                     break;
                 case KeyEvent.VK_S:// S
-                    if(player2.getStatus() == true && isValidMove(xPos2, yPos2 + 1)){
+                    if (player2.getStatus() == true && isValidMove(xPos2, yPos2 + 1)) {
                         player2.moveTo(xPos2, yPos2, xPos2, yPos2 + 1);
                         player2.setxPos(xPos2);
                         player2.setyPos(yPos2 + 1);
                     }
                     break;
                 case KeyEvent.VK_SPACE:// space
-                    if(player2.getStatus() == true) {
+                    if (player2.getStatus() == true) {
                         Bomb bomb = new Bomb(world, xPos2, yPos2);
                         world.put(bomb, xPos2, yPos2);
                         world.setMaze(xPos2, yPos2, 3);

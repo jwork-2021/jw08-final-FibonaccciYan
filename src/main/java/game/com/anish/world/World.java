@@ -19,6 +19,8 @@ public class World implements Serializable {
 
     public World() {
 
+        maze = new int[WIDTH][HEIGHT];
+
         if (tiles == null) {
             tiles = new Tile[WIDTH][HEIGHT];
         }
@@ -85,22 +87,19 @@ public class World implements Serializable {
             maze[x][y] = target;
     }
 
-    public void gameOver(int identifier) {
+    public void gameOver() {
         running = false;
 
         clearScreen();
 
-        put(new Thing(new Color(0, 0, 255), 'P', this), 6, HEIGHT/2 - 1);
-        put(new Thing(new Color(0, 0, 255), 'L', this), 7, HEIGHT/2 - 1);
-        put(new Thing(new Color(0, 0, 255), 'A', this), 8, HEIGHT/2 - 1);
-        put(new Thing(new Color(0, 0, 255), 'Y', this), 9, HEIGHT/2 - 1);
-        put(new Thing(new Color(0, 0, 255), 'E', this), 10, HEIGHT/2 - 1);
-        put(new Thing(new Color(0, 0, 255), 'R', this), 11, HEIGHT/2 - 1);
-        put(new Thing(new Color(0, 0, 255), (char)(identifier + 48), this), 13, HEIGHT/2 - 1);
-        put(new Thing(new Color(0, 0, 255), 'W', this), 8, HEIGHT/2);
-        put(new Thing(new Color(0, 0, 255), 'I', this), 9, HEIGHT/2);
-        put(new Thing(new Color(0, 0, 255), 'N', this), 10, HEIGHT/2);
-        put(new Thing(new Color(0, 0, 255), '!', this), 11, HEIGHT/2);
+        put(new Thing(new Color(0, 0, 255), 'Y', this), 5, HEIGHT/2 - 1);
+        put(new Thing(new Color(0, 0, 255), 'O', this), 6, HEIGHT/2 - 1);
+        put(new Thing(new Color(0, 0, 255), 'U', this), 7, HEIGHT/2 - 1);
+        put(new Thing(new Color(0, 0, 255), 'L', this), 9, HEIGHT/2 - 1);
+        put(new Thing(new Color(0, 0, 255), 'O', this), 10, HEIGHT/2 - 1);
+        put(new Thing(new Color(0, 0, 255), 'S', this), 11, HEIGHT/2 - 1);
+        put(new Thing(new Color(0, 0, 255), 'E', this), 12, HEIGHT/2 - 1);
+        put(new Thing(new Color(0, 0, 255), '!', this), 13, HEIGHT/2 - 1);
     }
 
     public void clearScreen() {

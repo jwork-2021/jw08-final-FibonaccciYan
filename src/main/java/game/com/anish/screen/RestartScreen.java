@@ -12,7 +12,7 @@ public abstract class RestartScreen implements Screen {
     public Screen respondToUserInput(KeyEvent key) {
         switch (key.getKeyCode()) {
             case KeyEvent.VK_ENTER:
-                return new WorldScreen();
+                return new LocalScreen();
             default:
                 return this;
         }

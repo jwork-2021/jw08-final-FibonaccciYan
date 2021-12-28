@@ -9,6 +9,12 @@ public class ReadEventHandler implements EventHandler {
 
     private Selector demultiplexer;
     private ByteBuffer inputBuffer = ByteBuffer.allocate(2048);
+    private ByteBuffer outputBuffer = ByteBuffer.allocate(2048);
+    private int playerCount;
+
+    public void setPlayerCount(int playerCount) {
+        this.playerCount = playerCount;
+    }
 
     public ReadEventHandler(Selector demultiplexer) {
         this.demultiplexer = demultiplexer;
@@ -27,13 +33,21 @@ public class ReadEventHandler implements EventHandler {
         byte[] buffer = new byte[inputBuffer.limit()];
         inputBuffer.get(buffer);
 
-        System.out.println("Received message from client : " + new String(buffer));
+        String message = new String(buffer);
+        System.out.println("Received message from client : " + message);
+        if (message.equals("Client ask for identifier")) {
+            outputBuffer = ByteBuffer.wrap(("Player" + this.playerCount).getBytes());
+        } else if (message.equals("Client ask for map")) {
+            if (this.playerCount == 4) {
+                
+            }
+        }
 
         // Rewind the buffer to the previous state.
         inputBuffer.flip();
         // Register the interest for writable readiness event for
         // this channel in order to echo back the message
-        socketChannel.register(demultiplexer, SelectionKey.OP_WRITE, inputBuffer);
+        socketChannel.register(demultiplexer, SelectionKey.OP_WRITE, outputBuffer);
 
     }
 }

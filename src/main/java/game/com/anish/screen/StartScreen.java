@@ -15,7 +15,7 @@ import java.awt.event.KeyEvent;
 
 public class StartScreen extends RestartScreen {
 
-    WorldScreen ws = new WorldScreen();
+    LocalScreen ws = new LocalScreen();
 
     private void load() {
         try(ObjectInputStream ois = new ObjectInputStream(
@@ -57,9 +57,9 @@ public class StartScreen extends RestartScreen {
     public Screen respondToUserInput(KeyEvent key) {
         switch (key.getKeyCode()) {
             case KeyEvent.VK_1:
-                return new WorldScreen();
+                return new LocalScreen();
             case KeyEvent.VK_2:
-                return this;
+                return new SelectScreen();
             case KeyEvent.VK_3:
                 load();
                 return this.ws;

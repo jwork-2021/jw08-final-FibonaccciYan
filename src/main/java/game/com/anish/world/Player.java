@@ -52,8 +52,6 @@ public class Player extends Creature implements Runnable {
             System.out.print("");
             if(!alive) {
                 world.remove(xPos, yPos);
-                //TODO: winner
-                world.gameOver(identifier);
                 return;
             }
         }

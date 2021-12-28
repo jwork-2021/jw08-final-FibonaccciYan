@@ -4,8 +4,20 @@ import java.net.InetSocketAddress;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.ServerSocketChannel;
 
-public class ReactorManager {
-    private static final int SERVER_PORT = 7070;
+import game.com.anish.screen.OnlineScreen;
+
+public class ReactorManager implements Runnable {
+
+    private Reactor reactor;
+    public static final int SERVER_PORT = 7070;
+
+    public ReactorManager(OnlineScreen os) {
+        try {
+            reactor = new Reactor(os);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     public void startReactor(int port) throws Exception {
 
@@ -13,7 +25,6 @@ public class ReactorManager {
         server.socket().bind(new InetSocketAddress(port));
         server.configureBlocking(false);
 
-        Reactor reactor = new Reactor();
         reactor.registerChannel(SelectionKey.OP_ACCEPT, server);
 
         reactor.registerEventHandler(
@@ -29,10 +40,15 @@ public class ReactorManager {
 
     }
 
-    public static void main(String[] args) {
+    public void sendMessage(String message) {
+        reactor.sendMessage(message);
+    }
+
+    @Override
+    public void run() {
         System.out.println("Server Started at port : " + SERVER_PORT);
         try {
-            new ReactorManager().startReactor(SERVER_PORT);
+            this.startReactor(SERVER_PORT);
         } catch (Exception e) {
             e.printStackTrace();
         }

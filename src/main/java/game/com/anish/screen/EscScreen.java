@@ -17,9 +17,9 @@ import java.awt.event.KeyEvent;
 
 public class EscScreen extends RestartScreen {
 
-    private WorldScreen ws;
+    private LocalScreen ws;
 
-    EscScreen(WorldScreen worldScreen) {
+    EscScreen(LocalScreen worldScreen) {
         this.ws = worldScreen;
     }
 
@@ -73,7 +73,7 @@ public class EscScreen extends RestartScreen {
     public Screen respondToUserInput(KeyEvent key) {
         switch(key.getKeyCode()) {
             case KeyEvent.VK_1:
-                return new WorldScreen();
+                return new LocalScreen();
             case KeyEvent.VK_2:
                 load();
                 return this.ws;
