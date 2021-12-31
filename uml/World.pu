@@ -1,0 +1,120 @@
+@startuml
+
+interface Serializable {
+
+}
+
+interface Runnable {
+
+}
+
+class Thing {
+    World world
+    Tile<? extends Thing> tile
+    Color color
+    char glyph
+    
+    Thing()
+    getX()
+    getY()
+    setTile()
+    getColor()
+    setColor()
+    getGlyph()
+    setGlyph()
+
+}
+
+class Creature {
+    Creature()
+    moveTo()
+}
+
+class Floor {
+    Floor()
+}
+
+class Player {
+    int xPos
+    int yPos
+    boolean alive
+    int identifier
+
+    Player()
+    boolean getStatus()
+    int getxPos()
+    int getyPos()
+    void setStatus()
+    void setxPos()
+    void setyPos()
+    int getIdentifier()
+
+    void run()
+}
+
+class Bomb {
+    int xPos
+    int yPos
+    static final int[][] DIREC
+
+    Bomb()
+    int getxPos()
+    int getyPos()
+    void explode()
+
+    void run()
+}
+
+class Tile<T extends Thing> {
+    T thing
+    int xPos
+    int yPos
+
+    Tile()
+    Tile(int xPos, int yPos)
+    T getThing()
+    void setThing()
+    int getxPos()
+    void setxPos()
+    int getyPos()
+    void setyPos()
+}
+
+class Wall {
+    Wall()
+}
+
+class World {
+    static final int WIDTH = 20
+    static final int HEIGHT = 20
+    List<Thing> entities
+    int[][] maze
+    boolean running
+    Tile<Thing>[][] tiles
+
+    World()
+    Thing get()
+    void put()
+    void remove()
+    List<Thing> getEntities()
+    void removeEntities()
+    int getMaze()
+    void setMaze()
+    void clearScreen()
+    void gameOver()
+    void gameWin()
+}
+
+Thing ..|> Serializable
+World ..|> Serializable
+Tile ..|> Serializable
+Player ..|> Runnable
+Bomb ..|> Runnable
+
+Creature --|> Thing
+Wall --|> Thing
+Floor --|> Thing
+Player --|> Creature
+Bomb --|> Creature
+
+@enduml

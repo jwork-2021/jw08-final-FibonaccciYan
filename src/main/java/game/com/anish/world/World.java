@@ -13,7 +13,7 @@ public class World implements Serializable {
 
     public List<Thing> entities;
     public int[][] maze;
-    public boolean running; 
+    public boolean running;
 
     private Tile<Thing>[][] tiles;
 
@@ -44,16 +44,16 @@ public class World implements Serializable {
         this.tiles[x][y].setThing(t);
     }
 
-    public void remove(int x, int y){
-        if(0 <= x && x <= WIDTH -1 && 0 <= y && y <= HEIGHT - 1)
+    public void remove(int x, int y) {
+        if (0 <= x && x <= WIDTH - 1 && 0 <= y && y <= HEIGHT - 1)
             this.tiles[x][y].setThing(new Floor(this));
     }
 
     public List<Thing> getEntities(int x, int y) {
         List<Thing> temp = new ArrayList<Thing>();
-        for(int i = 0; i < entities.size(); i++) {
+        for (int i = 0; i < entities.size(); i++) {
             Thing target = entities.get(i);
-            if(target.getX() == x && target.getY() == y)
+            if (target.getX() == x && target.getY() == y)
                 temp.add(target);
         }
         return temp;
@@ -61,21 +61,21 @@ public class World implements Serializable {
 
     public void removeEntities(Thing target) {
         Iterator<Thing> it = entities.iterator();
-        while(it.hasNext()) {
+        while (it.hasNext()) {
             Thing i = it.next();
-            if(i == target) {
+            if (i == target) {
                 it.remove();
                 break;
             }
         }
     }
 
-    // -1: invalid get 
+    // -1: invalid get
     // 0: Wall
     // 1: Way
     // 2: Player
     public int getMaze(int x, int y) {
-        if(0 <= x && x <= WIDTH - 1 && 0 <= y && y <= HEIGHT - 1) {
+        if (0 <= x && x <= WIDTH - 1 && 0 <= y && y <= HEIGHT - 1) {
             return maze[x][y];
         } else {
             return -1;
@@ -83,8 +83,16 @@ public class World implements Serializable {
     }
 
     public void setMaze(int x, int y, int target) {
-        if(0 <= x && x <= WIDTH - 1 && 0 <= y && y <= HEIGHT - 1)
+        if (0 <= x && x <= WIDTH - 1 && 0 <= y && y <= HEIGHT - 1)
             maze[x][y] = target;
+    }
+
+    public void clearScreen() {
+        for (int i = 0; i < WIDTH; i++) {
+            for (int j = 0; j < HEIGHT; j++) {
+                put(new Thing(new Color(0, 0, 0), ' ', this), i, j);
+            }
+        }
     }
 
     public void gameOver() {
@@ -92,24 +100,28 @@ public class World implements Serializable {
 
         clearScreen();
 
-        put(new Thing(new Color(0, 0, 255), 'Y', this), 5, HEIGHT/2 - 1);
-        put(new Thing(new Color(0, 0, 255), 'O', this), 6, HEIGHT/2 - 1);
-        put(new Thing(new Color(0, 0, 255), 'U', this), 7, HEIGHT/2 - 1);
-        put(new Thing(new Color(0, 0, 255), 'L', this), 9, HEIGHT/2 - 1);
-        put(new Thing(new Color(0, 0, 255), 'O', this), 10, HEIGHT/2 - 1);
-        put(new Thing(new Color(0, 0, 255), 'S', this), 11, HEIGHT/2 - 1);
-        put(new Thing(new Color(0, 0, 255), 'E', this), 12, HEIGHT/2 - 1);
-        put(new Thing(new Color(0, 0, 255), '!', this), 13, HEIGHT/2 - 1);
+        put(new Thing(new Color(0, 0, 255), 'Y', this), 5, HEIGHT / 2 - 1);
+        put(new Thing(new Color(0, 0, 255), 'O', this), 6, HEIGHT / 2 - 1);
+        put(new Thing(new Color(0, 0, 255), 'U', this), 7, HEIGHT / 2 - 1);
+        put(new Thing(new Color(0, 0, 255), 'L', this), 9, HEIGHT / 2 - 1);
+        put(new Thing(new Color(0, 0, 255), 'O', this), 10, HEIGHT / 2 - 1);
+        put(new Thing(new Color(0, 0, 255), 'S', this), 11, HEIGHT / 2 - 1);
+        put(new Thing(new Color(0, 0, 255), 'E', this), 12, HEIGHT / 2 - 1);
+        put(new Thing(new Color(0, 0, 255), '!', this), 13, HEIGHT / 2 - 1);
     }
 
-    public void clearScreen() {
-        for(int i = 0; i < WIDTH; i++) {
-            for(int j = 0; j < HEIGHT; j++) {
-                put(new Thing(new Color(0, 0, 0), ' ', this), i, j);
-            }
-        }
+    public void gameWin() {
+        running = false;
+
+        clearScreen();
+
+        put(new Thing(new Color(255, 0, 0), 'Y', this), 6, HEIGHT / 2 - 1);
+        put(new Thing(new Color(255, 0, 0), 'O', this), 7, HEIGHT / 2 - 1);
+        put(new Thing(new Color(255, 0, 0), 'U', this), 8, HEIGHT / 2 - 1);
+        put(new Thing(new Color(255, 0, 0), 'W', this), 10, HEIGHT / 2 - 1);
+        put(new Thing(new Color(255, 0, 0), 'I', this), 11, HEIGHT / 2 - 1);
+        put(new Thing(new Color(255, 0, 0), 'N', this), 12, HEIGHT / 2 - 1);
+        put(new Thing(new Color(255, 0, 0), '!', this), 13, HEIGHT / 2 - 1);
     }
 
 }
-
-

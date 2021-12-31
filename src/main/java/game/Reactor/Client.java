@@ -49,6 +49,8 @@ public class Client implements Runnable {
     public void run() {
         System.out.println("Clinet start: " + this.os.identifier);
 
+        int count = 0; //DIE count
+
         while (os.player.getStatus()) {
             // System.out.println("Client receiving message...");
             String message = this.receiveMessage();
@@ -117,6 +119,11 @@ public class Client implements Runnable {
 
                 player.setStatus(false);
 
+                count++;
+                if(count == 3) {
+                    os.world.gameWin();
+                }
+
             } else {
                 System.out.println("Error order: " + orders[1]);
             }
@@ -124,6 +131,7 @@ public class Client implements Runnable {
 
         this.sendMessage(this.os.identifier + " DIE");
         os.world.gameOver();
+        os.exec.shutdown(); 
         System.out.println("Clinet end: " + this.os.identifier);
     }
 }

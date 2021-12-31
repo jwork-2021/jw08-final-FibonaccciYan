@@ -116,6 +116,10 @@ public class Reactor {
 
             player.setStatus(false);
 
+            if(os.player2.getStatus() == false && os.player3.getStatus() == false && os.player4.getStatus() == false) {
+                os.world.gameWin();
+            }
+
         } else {
             System.out.println("Error order: " + orders[1]);
         }

@@ -1,0 +1,84 @@
+@startuml
+
+interface Runnable {
+
+}
+
+class ReactorManager {
+    Reactor reactor
+    static final int SERVER_PORT = 7070
+
+    ReactorManager()
+    void startReactor()
+    void sendMessage()
+
+    void run()
+}
+
+class Reactor {
+    Map<Integer, EventHandler> registeredHandlers
+    Selector demultiplexer
+    int playerCount = 1
+    int broadcastCount = 1
+    OnlineScreen os
+    String maze = ""
+    String serverMessage = ""
+    boolean changed = false
+
+    Reactor()
+    Selector getDemultiplexer()
+    void registerEventHandler()
+    void registerChannel()
+    int getPlayerCount()
+    void setMaze()
+    void serverHandle()
+    void sendMessage()
+    void run()
+}
+
+interface EventHandler {
+    void handleEvent()
+}
+
+class WriteEventHandler {
+    void handleEvent()
+}
+
+class ReadEventHandler {
+    Selector demultiplexer
+    ByteBuffer inputBuffer = ByteBuffer.allocate(2048)
+    ByteBuffer outputBuffer = ByteBuffer.allocate(2048)
+    int playerCount
+
+    ReadEventHandler()
+    void setPlayerCount()
+    void handleEvent()
+}
+
+class AcceptEventHandler {
+    Selector demultiplexer
+
+    AcceptEventHandler()
+    void handleEvent()
+}
+
+class Client {
+    Socket clientSocket
+    OnlineScreen os
+
+    Client()
+    void sendMessage()
+    String receiveMessage()
+    void run()
+}
+
+Client ..|> Runnable
+ReactorManager ..|> Runnable
+
+Reactor ..* ReactorManager
+
+AcceptEventHandler ..|> EventHandler
+ReadEventHandler ..|> EventHandler
+WriteEventHandler ..|> EventHandler
+
+@enduml 

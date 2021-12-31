@@ -1,0 +1,87 @@
+@startuml
+
+interface Screen {
+    displayOutput()
+    respondToUserInput()
+}
+
+class OnlineScreen {
+
+    int SIZE
+    World world
+    Player player
+    Player player1
+    Player player2
+    Player player3
+    Player player4
+    ExecutorService exec 
+    boolean isServer
+    Client client
+    ReactorManager server
+    String identifier
+
+    OnlineScreen()
+    initWorld()
+    setWall()
+    isValidMove()
+    displayOutput()
+    respondToUserInput()
+}
+
+class LocalScreen {
+
+    int SIZE
+    World world
+    Player player1
+    Player player2
+    ExecutorService exec 
+
+    LocalScreen()
+    initWorld()
+    isValidMove()
+    displayOutput()
+    respondToUserInput()
+}
+
+class RestartScreen {
+    displayOutput()
+    respondToUserInput()
+}
+
+class StartScreen {
+
+    LocalScreen ws
+
+    load()
+    displayOutput()
+    respondToUserInput()
+}
+
+class SelectScreen {
+    displayOutput()
+    respondToUserInput()
+}
+
+class InstructionScreen {
+    displayOutput()
+    respondToUserInput()
+}
+
+class EscScreen {
+    LocalScreen ws
+    EscScreen()
+    load()
+    displayOutput()
+    respondToUserInput()
+}
+
+LocalScreen ..|> Screen
+OnlineScreen ..|> Screen
+RestartScreen ..|> Screen
+
+EscScreen --|> RestartScreen
+StartScreen --|> RestartScreen
+SelectScreen --|> RestartScreen
+InstructionScreen --|> RestartScreen
+
+@enduml

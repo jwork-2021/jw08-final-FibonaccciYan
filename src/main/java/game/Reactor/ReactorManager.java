@@ -34,7 +34,7 @@ public class ReactorManager implements Runnable {
                 SelectionKey.OP_READ, new ReadEventHandler(reactor.getDemultiplexer()));
 
         reactor.registerEventHandler(
-                SelectionKey.OP_WRITE, new WriteEventHandler(reactor.getDemultiplexer()));
+                SelectionKey.OP_WRITE, new WriteEventHandler());
 
         reactor.run(); // Run the dispatcher loop
 
